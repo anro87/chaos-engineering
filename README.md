@@ -12,7 +12,7 @@ The Infrastructure setup is done via Terraform
 # System under Chaos
 The chaos experiments are running against an AWS hosted CRM-Service. The system provides a RESTful API interface to fetch all available customers and related projects. Moreover available Sales-Leads are fetched from another external API and processed before returned to the API caller.
 
-![Architektur drawio](https://user-images.githubusercontent.com/36228512/165273451-7e245c9a-e07b-40f0-9575-4640617b5494.png)
+![Architektur drawio](https://user-images.githubusercontent.com/36228512/165306234-70baee03-f413-4383-8d78-2f62e33ebb93.png)
 
 # Executed Experiments
 
