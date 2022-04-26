@@ -42,4 +42,8 @@ foo@bar:~$ cd ./chaos-monkey
 foo@bar:~$ sh exec_experiment.sh
 ```
 
-The script will execute all experiments mentioned above and create a report pdf at `./chaos-monkey/report.pdf`.
+# Teardown environment
+```console
+foo@bar:~$ cd ./infrastructure
+foo@bar:~$ sh destory.sh
+```
