@@ -1,6 +1,8 @@
 #!/bin/bash
 source setup.sh
 
+mkdir -p journals
+
 chaos run --rollback-strategy=always --journal-path ./journals/exp1.json ./experiments/experiment1.json
 
 chaos run --rollback-strategy=always --journal-path ./journals/exp2.json ./experiments/experiment2.json
