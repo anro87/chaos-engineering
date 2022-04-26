@@ -5,3 +5,5 @@ keys/
 terraform.tfstate
 chaostoolkit.log
 journals/
+.DS_Store
+report.pdf
