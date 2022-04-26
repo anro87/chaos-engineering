@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Lift & Shift Migration",
+        "customer-id": "36001a81-1acc-4689-b193-9ad26bfdb9e1",
+        "from": "2021-02-20",
+        "to": "2021-09-03"
+    },
+    {
+        "name": "From Monolith to Microservice",
+        "customer-id": "59746e41-7e1f-452f-8b8d-7dd57274f150",
+        "from": "2019-06-13",
+        "to": "2020-03-18"
+    },
+    {
+        "name": "Establish new CRM-System",
+        "customer-id": "36001a81-1acc-4689-b193-9ad26bfdb9e1",
+        "from": "2017-05-01",
+        "to": "2017-12-31"
+    },
+    {
+        "name": "Define & Implement API-Connector",
+        "customer-id": "20549bce-2faf-43cb-ab1c-33ca58c3324e",
+        "from": "2016-07-01",
+        "to": "2016-10-15"        
+    }
+]
