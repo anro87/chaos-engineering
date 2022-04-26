@@ -15,6 +15,7 @@ echo "Set API-User's password:";
 read -s API_PASSWORD;
 
 #Deploy infrastructure
+mkdir -p keys
 terraform init
 if terraform apply -auto-approve -var "database_user=${DB_USER}" -var "database_password=${DB_PASSWORD}"
 then
