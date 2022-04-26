@@ -1,0 +1,94 @@
+{
+    "title": "Does our service tolerate a database restart?",
+    "description": "Our service reads customers from database, can it still deliver all data when database is restarted?",
+    "tags": [
+        "cecs",
+        "db_restart"
+    ],
+    "configuration": {
+        "probe_endpoint": {
+            "type": "env",
+            "key": "API_ENDPOINT"
+        },
+        "api_token": {
+            "type": "env",
+            "key": "API_TOKEN"
+        }
+    },
+    "steady-state-hypothesis": {
+        "title": "RESTful API needs to be available and return all records",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/customers",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                },
+                "pauses": {
+                    "after": 5
+                }
+            },
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/customers",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                },
+                "pauses": {
+                    "after": 5
+                }
+            },
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/customers",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                },
+                "pauses": {
+                    "after": 5
+                }
+            },
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/customers",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "name": "reboot-db-instance",
+            "type": "action",
+            "provider": {
+              "type": "python",
+              "module": "chaosaws.rds.actions",
+              "func": "reboot_db_instance",
+              "arguments": {
+                "db_instance_identifier": "cecsdb"
+              }
+            }
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "title": "Does our service tolerate network hiccups on external API?",
+    "description": "Our service reads sales leads from external API, can it still deliver all data when network is instable?",
+    "tags": [
+        "cecs",
+        "network_leads_api"
+    ],
+    "configuration": {
+        "probe_endpoint": {
+            "type": "env",
+            "key": "API_ENDPOINT"
+        },
+        "api_token": {
+            "type": "env",
+            "key": "API_TOKEN"
+        },
+        "toxiproxy_host" : {
+            "type": "env",
+            "key": "TOXI_PROXY_HOST"
+        }
+    },
+    "steady-state-hypothesis": {
+        "title": "RESTful API needs to be available and return all records",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/salesLeads",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "create_latency_toxic",
+            "provider": {
+                "type": "python",
+                "module": "chaostoxi.toxic.actions",
+                "func": "create_toxic",
+                "arguments": {
+                    "for_proxy": "Leads-API",
+                    "toxic_name": "timeout_toxic",
+                    "toxic_type": "timeout",
+                    "attributes":{
+                        "timeout": 500
+                    }
+                }
+            },
+            "pauses": {
+                "after": 1
+            }
+        }  
+    ],
+    "rollbacks":[
+        {
+            "type": "action",
+            "name": "delete_toxic",
+            "provider": {
+                "type": "python",
+                "module": "chaostoxi.toxic.actions",
+                "func": "delete_toxic",
+                "arguments": {
+                    "for_proxy": "Leads-API",
+                    "toxic_name": "timeout_toxic"
+                }
+            }
+        } 
+    ]
+}

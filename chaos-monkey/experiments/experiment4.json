@@ -1,0 +1,74 @@
+{
+    "title": "Does our service tolerate problems while S3 file is removed?",
+    "description": "Our service reads projects from AWS Lambda function, can it still deliver at least customers when S3 file is not available?",
+    "tags": [
+        "cecs",
+        "ec2_restart"
+    ],
+    "configuration": {
+        "probe_endpoint": {
+            "type": "env",
+            "key": "API_ENDPOINT"
+        },
+        "api_token": {
+            "type": "env",
+            "key": "API_TOKEN"
+        },
+        "instance_id": {
+            "type": "env",
+            "key": "APPSERVER_EC2_ID"
+        }
+    },
+    "steady-state-hypothesis": {
+        "title": "RESTful API needs to be available and return all records",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/customers",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "name": "backup-s3-file",
+            "type": "action",
+            "provider": {
+              "type": "process",
+              "path": "aws",
+              "arguments": "s3 mv s3://cecs-s3-bucket/project_list.json project_list.json"
+            }
+        },
+        {
+            "name": "delete-file",
+            "type": "action",
+            "provider": {
+              "type": "python",
+              "module": "chaosaws.s3.actions",
+              "func": "delete_object",
+              "arguments": {
+                "bucket_name": "cecs-s3-bucket",
+                "object_key": "project_list.json"
+              }
+            }
+          }
+    ],
+    "rollbacks": [
+        {
+            "name": "upload-backup-s3",
+            "type": "action",
+            "provider": {
+              "type": "process",
+              "path": "aws",
+              "arguments": "s3 cp project_list.json s3://cecs-s3-bucket/project_list.json"
+            }
+        }
+    ]
+}

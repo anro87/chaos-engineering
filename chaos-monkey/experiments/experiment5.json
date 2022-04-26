@@ -1,0 +1,69 @@
+{
+    "title": "Does our service tolerate problems while fetching projects of customers?",
+    "description": "Our service reads projects from AWS Lambda function, can it still deliver at least customers when function is not available?",
+    "tags": [
+        "cecs",
+        "ec2_restart"
+    ],
+    "configuration": {
+        "probe_endpoint": {
+            "type": "env",
+            "key": "API_ENDPOINT"
+        },
+        "api_token": {
+            "type": "env",
+            "key": "API_TOKEN"
+        },
+        "instance_id": {
+            "type": "env",
+            "key": "APPSERVER_EC2_ID"
+        }
+    },
+    "steady-state-hypothesis": {
+        "title": "RESTful API needs to be available and return all records",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "service-is-unavailable",
+                "tolerance": [200],
+                "provider": {
+                    "type": "http",
+                    "url": "${probe_endpoint}/customers",
+                    "headers": {
+                        "Authorization": "${api_token}"
+                    }
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "name": "put-function-concurrency",
+            "type": "action",
+            "provider": {
+              "type": "python",
+              "module": "chaosaws.awslambda.actions",
+              "func": "put_function_concurrency",
+              "arguments": {
+                "function_name": "GetProjectsS3",
+                "concurrent_executions": 0
+              }
+            }
+        }  
+    ],
+    "rollbacks":[
+        {
+            "name": "put-function-concurrency",
+            "type": "action",
+            "provider": {
+              "type": "python",
+              "module": "chaosaws.awslambda.actions",
+              "func": "put_function_concurrency",
+              "arguments": {
+                "function_name": "GetProjectsS3",
+                "concurrent_executions": 1
+              }
+            }
+        }
+    ]
+}
