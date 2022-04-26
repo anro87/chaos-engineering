@@ -33,7 +33,7 @@ After executing the Terraform deployment, all relevant configuration variables f
 
 # Executed Experiments
 
-Before executing the experiments make sure to adust `./chaos-monkey/setup.sh`.
+Before executing the experiments make sure to adjust `./chaos-monkey/setup.sh`.
 That file contains the configuration for all experiments and needs to be configured per environment.
 Once done the script will ask during executing to provide the password of the API-user.
 
