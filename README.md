@@ -24,7 +24,7 @@ The chaos experiments are running against an AWS hosted CRM-Service. The system 
 
 # Setup environment
 ```console
-foo@bar:~$ cd /infrastructure
+foo@bar:~$ cd ./infrastructure
 foo@bar:~$ sh build_deploy.sh
 ```
 
@@ -33,8 +33,12 @@ Once done, a API-Token will be printed that is valid for 2 hours.
 
 # Executed Experiments
 
+Before executing the experiments make sure to adust `./chaos-monkey/setup.sh`.
+That file contains the configuration for all experiments and needs to be configured per environment.
+Once done the script will ask during executing to provide the password of the API-user.
+
 ```console
-foo@bar:~$ cd /chaos-monkey
+foo@bar:~$ cd ./chaos-monkey
 foo@bar:~$ sh exec_experiment.sh
 ```
 
