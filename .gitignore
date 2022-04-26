@@ -3,3 +3,5 @@
 get_projects_s3.zip
 keys/
 terraform.tfstate
+chaostoolkit.log
+journals/
