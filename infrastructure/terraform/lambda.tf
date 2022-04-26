@@ -12,7 +12,7 @@ resource "aws_lambda_function" "get_projects_s3" {
   role = aws_iam_role.lambda_exec.arn
 
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -21,7 +21,7 @@ resource "aws_cloudwatch_log_group" "lambda_log_group" {
   
   retention_in_days = 1
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -43,7 +43,7 @@ resource "aws_iam_role" "lambda_exec" {
   })
 
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 

@@ -2,7 +2,7 @@ resource "aws_db_subnet_group" "subnet_group_cecs" {
   name       = "private_subnet_group_cecs"
   subnet_ids = [aws_subnet.private_subnet_cecs.id, aws_subnet.public_subnet_cecs.id]
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 

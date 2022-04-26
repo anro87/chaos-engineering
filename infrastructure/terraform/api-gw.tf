@@ -8,7 +8,7 @@ resource "aws_apigatewayv2_api" "api_gw" {
     allow_headers = ["content-type","Authorization"]
   }
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -78,7 +78,7 @@ resource "aws_cloudwatch_log_group" "api_gw_log_group" {
   name              = "/aws/api_gw/lambda_api_gw"
   retention_in_days = 1
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -101,7 +101,7 @@ resource "aws_apigatewayv2_vpc_link" "vpc_link" {
   security_group_ids = [aws_security_group.cecs_sg.id]
   subnet_ids         = [aws_subnet.private_subnet_cecs.id]
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_alb" "cecs_alb" {
   subnets         = [aws_subnet.private_subnet_cecs.id,aws_subnet.public_subnet_cecs.id]
   internal        = "true"
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 

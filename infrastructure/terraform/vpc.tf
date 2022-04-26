@@ -1,7 +1,7 @@
 resource "aws_vpc" "cecs" {
   cidr_block = "192.168.0.0/16"
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -19,21 +19,21 @@ resource "aws_subnet" "public_subnet_cecs" {
   availability_zone = data.aws_availability_zones.available.names[0]
   map_public_ip_on_launch = "true"
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.cecs.id
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.cecs.id
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_subnet" "private_subnet_cecs" {
   availability_zone = data.aws_availability_zones.available.names[1]
   map_public_ip_on_launch = "false"
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -70,7 +70,7 @@ resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.public_subnet_cecs.id
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
@@ -144,7 +144,7 @@ resource "aws_security_group" "cecs_sg" {
   }
   
   tags = {
-    Owner = "Andreas.Rotaru"
+    Owner = "anro"
   }
 }
 
