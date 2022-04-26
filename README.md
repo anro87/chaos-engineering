@@ -29,7 +29,7 @@ foo@bar:~$ sh build_deploy.sh
 ```
 
 The script will prompt for DB-user + password and API-user + password. Password will be hidden.
-Once done, a API-Token will be printed that is valid for 2 hours.
+After executing the Terraform deployment, all relevant configuration variables for the experiments will be printed to console.
 
 # Executed Experiments
 
