@@ -47,5 +47,5 @@ The script will execute all experiments mentioned above and create a report pdf 
 # Teardown environment
 ```console
 foo@bar:~$ cd ./infrastructure
-foo@bar:~$ sh destory.sh
+foo@bar:~$ sh destroy.sh
 ```
